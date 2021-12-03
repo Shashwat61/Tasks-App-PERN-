@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components{
+    .componentcontainer{
+        @apply p-2 border rounded-md shadow-sm mb-2
+    }
+    .componentdisplay{
+        @apply flex items-center justify-between
+    }
+}
