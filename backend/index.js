@@ -1,19 +1,24 @@
 const express=require('express')
 const app=express()
 const PORT=process.env.PORT || 8080
-const puppeteer = require('puppeteer');
+const cors=require('cors')
 require('dotenv').config()
 //Recursively crawl https://stackoverflow.com/questions using Node.js based crawler, harvest all questions on Stack Overflow and store them in a database of your choice. 
+app.use(cors())
+
 app.listen(PORT,()=>{
-    console.log( process.env.PORT)
     console.log('port started on '+PORT)
-    
 })
 app.get('/',(req,res)=>{
     res.send('Hi')
 })
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 
 app.use((err, req, res, next) => {
     if(err.statusCode) {

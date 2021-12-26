@@ -10,8 +10,9 @@ exports.createComplete=async(req, res, next)=>{
     // const completeId=req.body.todoId
     const boardId=req.params.id
     const title=req.body.title
+    const description=req.body.description
     try{ 
-          const compelete=new Complete({boardId, title})
+          const compelete=new Complete({boardId, title, description})
           const result=await compelete.addComplete()
           res.send(result)
     }catch(err){
@@ -30,3 +31,12 @@ exports.createComplete=async(req, res, next)=>{
     }
  }
 
+ exports.deleteComplete=async(req, res, next)=>{
+     const completeId=req.body.id
+     try{ 
+            const {rows}=await db.query(`DELETE FROM complete WHERE complete_id=${completeId}`)
+            res.send(rows)
+     }catch(err){
+         throw err
+     }
+ }

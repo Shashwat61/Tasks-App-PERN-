@@ -7,6 +7,9 @@ import { fetchBoards } from "../../redux/actions/boards.actions";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchTodosById } from "../../redux/actions/todos.actions";
+import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify'
+
 // headerprop is true when the modal is opened from the header 
 // if headerprop is true, form containing only the name of the title of the todo will be created
 // else form containing the name of todo
@@ -16,11 +19,16 @@ import { fetchTodosById } from "../../redux/actions/todos.actions";
 function ClientForm({handleClose, headerProp}) {
     const [boardName, setBoardName]=useState('')
     const [todoName, setTodoName]=useState('')
+    const [description, setDescription]=useState('')
     const dispatch=useDispatch()
     const {id}=useParams()
-
+    const notify=(err)=>{
+        toast.error(err,{
+            position: "top-right",
+        })
+    }
     
-    async function submitHeader(){
+    async function submitBoard(){
         try {
             await axios.post('http://localhost:8080/boards/addBoard',
             {
@@ -33,6 +41,7 @@ function ClientForm({handleClose, headerProp}) {
             })
         } catch (error) {
             console.log(error)
+            notify(error) 
         }
         dispatch(fetchBoards())
        
@@ -40,14 +49,20 @@ function ClientForm({handleClose, headerProp}) {
     
     async function submitTodo(){
         try{
-            await axios.post(`http://localhost:8080/boards/${id}/addTodo`,
+            const res=await axios.post(`http://localhost:8080/boards/${id}/addTodo`,
             {
-                title:todoName
+                title:todoName,
+                description
             },
             {
                 headers:{
                     'Content-Type':'application/json','Access-Control-Allow-Origin':'*'
                 }
+            })
+            console.log(res)
+            notify("todo added")
+            toast.success("todo added",{
+                position: toast.POSITION.TOP_CENTER
             })
         }catch(err){
             console.log(err)
@@ -55,15 +70,16 @@ function ClientForm({handleClose, headerProp}) {
         dispatch(fetchTodosById(id))
     }
 
-    function handleSubmit(e){
+     function handleSubmit(e){
         e.preventDefault()
         if(headerProp){
-            submitHeader()
+          submitBoard()
             setBoardName('') 
         }
         else{
             submitTodo()
             setTodoName('')
+            setDescription('')
             }
             handleClose()
     }
@@ -88,7 +104,7 @@ function ClientForm({handleClose, headerProp}) {
                      onChange={(e)=>setBoardName(e.target.value)}
                      />
                      ):(
-
+<>
                          <TextField
                          margin="dense"
                          id="projname"
@@ -100,6 +116,18 @@ function ClientForm({handleClose, headerProp}) {
                          value={todoName}
                          onChange={(e)=>setTodoName(e.target.value)}
                          />
+                         <TextField
+                         margin="dense"
+                         id="descname"
+                         label="Description"
+                         type="text"
+                         required={true}
+                         fullWidth
+                         variant="standard"
+                         value={description}
+                         onChange={(e)=>setDescription(e.target.value)}
+                         />
+                         </>
                          )
             }
 

@@ -8,14 +8,15 @@ board_id as req.params.id and todo_title as req.body.title
 exports.createTodo=async(req, res, next)=>{
     // console.log(req.body, req.params.id)
     const todoTitle=req.body.title
+    const description=req.body.description
     const boardId=req.params.id
     console.log(todoTitle, boardId)
     try{
-        const todo=new Todos({todoTitle, boardId})
+        const todo=new Todos({todoTitle, boardId, description})
         const result=await todo.addTodo()
         res.send(result)
     }catch(err){
-        throw err
+        res.send(err)
     }
  }
 

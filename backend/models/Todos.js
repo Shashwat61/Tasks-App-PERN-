@@ -1,30 +1,22 @@
 const db=require('../db')
 
-function Todos({boardId,todoTitle}){
+function Todos({boardId,todoTitle,description}){
     this.boardId=boardId
     this.todoTitle=todoTitle
-    console.log(todoTitle, boardId,'controller')
+    this.description=description
+    console.log(todoTitle, boardId,description,'controller')
 }
 
 Todos.prototype.addTodo=async function(){
  try{
-     const {rows}=await db.query(`INSERT INTO todos(board_id, todo_title) VALUES($1, $2) `, [this.boardId, this.todoTitle])
+     const {rows}=await db.query(`INSERT INTO todos(board_id, todo_title, todo_description) VALUES($1, $2, $3) `, [this.boardId, this.todoTitle, this.description])
      console.log(rows,'rows')
      return rows
  }catch(err){
-     throw err
+     return err
  }
 }
 
 
-// Boards.prototype.fetchBoards=async function(){
-//     try{
-//         const {rows}=await db.query(`SELECT * FROM boards`)
-//         console.log(rows)
-//         return rows
-//     }catch(err){
-//         throw err
-//     }
-// }
+
 module.exports=Todos
-// db.query: the query method we exported earlier from db/index.js

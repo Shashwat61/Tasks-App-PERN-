@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Footer from "./components/Footer"
 import Header from "./components/Header"
 import MainContent from "./components/MainContent"
 import {
@@ -22,7 +21,7 @@ function App() {
   
   return (
 
-    <div className="max-w-7xl mx-auto">
+    <div className="mx-auto max-w-7xl">
       <Header/>
     </div>
   )

@@ -7,10 +7,10 @@ function Completed() {
     const {id}=useParams()
     const {completedTodos, loading}=useSelector(state=>state.fetchCompletedTodosReducer)
     return (
-        <div className=" col-span-1">
+        <div className="col-span-1 ">
             <span className="font-semibold">Todos Completed</span>
-            {!loading ? completedTodos?.map(({complete_id, board_id, complete_title})=>(
-                <TodoCard key={complete_id} id={complete_id} title={complete_title}  />
+            {!loading ? completedTodos?.map(({complete_id, board_id, complete_title, complete_description})=>(
+                <TodoCard key={complete_id} id={complete_id} title={complete_title} boardId={board_id} description={complete_description} />
             )):(
                 <div>Loading...</div>
             )}
