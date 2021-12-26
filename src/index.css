@@ -3,11 +3,18 @@
 @tailwind utilities;
 
 
+::-webkit-scrollbar{
+    display:none;
+}
+
+
 @layer components{
-    .componentcontainer{
-        @apply p-2 border rounded-md shadow-sm mb-2
+    .boardButtons{
+        @apply whitespace-nowrap w-max border rounded-md mr-2 flex items-center cursor-pointer
     }
     .componentdisplay{
         @apply flex items-center justify-between
     }
+
 }
+

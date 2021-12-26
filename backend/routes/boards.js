@@ -1,0 +1,15 @@
+const express=require('express')
+const router=express.Router()
+const boardController=require('../controllers/boards')
+const todosController=require('../controllers/todos')
+const completeController=require('../controllers/complete')
+
+router.post('/addBoard',boardController.postCreateBoard)
+router.get('/',boardController.getBoards)
+router.post('/delete/:id',boardController.deleteBoard)
+router.post('/:id/addTodo',todosController.createTodo)
+router.get('/:id/todos', todosController.getTodos)
+router.post('/:id/addComplete', completeController.createComplete)
+router.post('/:id/deleteTodo', todosController.deleteTodo)
+router.get('/:id/completetodos', completeController.getCompleteTodos)
+module.exports=router

@@ -1,21 +1,29 @@
+import React, { useEffect } from 'react';
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import MainContent from "./components/MainContent"
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBoards } from '../redux/actions/boards.actions';
+
 
 function App() {
-  return (
-    <div className="grid w-full bg-gray-100 place-items-center">
+    const dispatch=useDispatch()
 
-      <div className="my-2 bg-white ">
-      {/* header */}
+    useEffect(()=>{
+      console.log('app')
+        dispatch(fetchBoards())
+},[dispatch])
+  
+  return (
+
+    <div className="max-w-7xl mx-auto">
       <Header/>
-      {/* main content */}
-      <div className="p-2">
-      <MainContent/>
-      </div>
-      {/* footer */}
-      <Footer/>
-      </div>
     </div>
   )
 }
