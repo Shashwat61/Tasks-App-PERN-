@@ -22,7 +22,9 @@ You can view the development server at `localhost:3000`.
 (change port in ./config/webpack.dev.js)
 
 ### For backend server 
-```bash npm start/nodemon start
+```cd backend```
+```bash
+npm start/nodemon start
 ```
 
 
