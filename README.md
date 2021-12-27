@@ -1,29 +1,21 @@
-# react-webpack-6-tailwind-2
+# Todo App
 
-React 17 Boilerplate with React 17, Webpack 6, Tailwind 2, HMR, using babel, Jest unit testing, sass, with a hot dev server and an optimized production build
+R
 
-[Demo](https://dreamy-shirley-041c74.netlify.app/)
 
-Maintained by [Altafino - Full-Stack Go/JS Development](https://altafino.com)
 
-## Last Changes (the newest first):
 
-- added full support for unit testing (with file mocks) using Jest
-- added SVGR as a webpack loader to import your SVG directly as a React Component.
-- added build-staging script. same as build but using .env.staging
-- added dotenv-webpack to handle process.env.VARS
-- added Prettier
-- added react-refresh-webpack-plugin for HMR
+
+
 
 ## Installation
 
 ```
-git clone https://github.com/altafino/react-webpack-5-tailwind-2.git
-cd react-webpack-5-tailwind-2
+git clone https://github.com/Shashwat61/chiselchallenge
+cd TODOFULLSTACKAPP
 yarn / npm i
 ```
 
-To use it for your own project the easiest way is to use the green Template Button on top right of this repo on Github.
 
 ## Usage
 
@@ -36,11 +28,11 @@ yarn start / npm start
 You can view the development server at `localhost:3000`.
 (change port in ./config/webpack.dev.js)
 
-### Unit Test
-
-```bash
- yarn test / npm test
+### For backend server 
+```bash npm start/nodemon start
 ```
+
+
 
 ### Production build
 
