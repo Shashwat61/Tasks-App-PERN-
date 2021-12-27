@@ -10,7 +10,6 @@ export const fetchTodosReducer=(state={todos:[], loading:false, err:''},action)=
                 loading:true
             }
         case FETCH_TODOS_SUCCESS:
-            console.log(payload)
             return {
                 ...state,
                 loading:false,

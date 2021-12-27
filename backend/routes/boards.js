@@ -10,6 +10,8 @@ router.post('/delete/:id',boardController.deleteBoard)
 
 router.get('/:id/todos', todosController.getTodos)
 router.post('/:id/addTodo',todosController.createTodo)
+router.post('/:id/updateTodoTitle',todosController.updateTodoTitle)
+router.post('/:id/updateTodoDescription', todosController.updateTodoDescription)
 router.post('/:id/deleteTodo', todosController.deleteTodo)
 
 router.get('/:id/completetodos', completeController.getCompleteTodos)

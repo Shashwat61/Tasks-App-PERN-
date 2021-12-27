@@ -22,15 +22,11 @@ function ClientForm({handleClose, headerProp}) {
     const [description, setDescription]=useState('')
     const dispatch=useDispatch()
     const {id}=useParams()
-    const notify=(err)=>{
-        toast.error(err,{
-            position: "top-right",
-        })
-    }
+
     
     async function submitBoard(){
         try {
-            await axios.post('http://localhost:8080/boards/addBoard',
+            await axios.post(`${process.env.REACT_APP_API_URL}/boards/addBoard`,
             {
                 title:boardName
             },
@@ -41,7 +37,7 @@ function ClientForm({handleClose, headerProp}) {
             })
         } catch (error) {
             console.log(error)
-            notify(error) 
+         
         }
         dispatch(fetchBoards())
        
@@ -49,7 +45,7 @@ function ClientForm({handleClose, headerProp}) {
     
     async function submitTodo(){
         try{
-            const res=await axios.post(`http://localhost:8080/boards/${id}/addTodo`,
+            const res=await axios.post(`${process.env.REACT_APP_API_URL}/boards/${id}/addTodo`,
             {
                 title:todoName,
                 description
@@ -59,11 +55,9 @@ function ClientForm({handleClose, headerProp}) {
                     'Content-Type':'application/json','Access-Control-Allow-Origin':'*'
                 }
             })
-            console.log(res)
-            notify("todo added")
-            toast.success("todo added",{
-                position: toast.POSITION.TOP_CENTER
-            })
+          
+           
+           
         }catch(err){
             console.log(err)
         }

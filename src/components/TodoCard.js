@@ -4,19 +4,22 @@ import { useDispatch } from "react-redux"
 import { fetchCompleteTodosById } from "../../redux/actions/complete.actions"
 import { fetchTodosById } from "../../redux/actions/todos.actions"
 import CloseIcon from '@mui/icons-material/Close';
-
-//  chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
-/* when check is true -> submit button -> post request to  */
+import CreateIcon from '@mui/icons-material/Create';
+import CheckIcon from '@mui/icons-material/Check';
 
 function TodoCard({id, title, status, boardId, description}) {
     const[check, setCheck]=React.useState(false)
+    const [titleCheck, setTitleEditCheck]=React.useState(false)
+    const [updatedTitle, setUpdatedTitle]=React.useState('')
+    const [descriptionCheck, setDescriptionEditCheck]=React.useState(false)
+    const [updatedDescription, setUpdatedDescription]=React.useState('')
     const dispatch=useDispatch()
     
     async function deleteTodo(){
      if(status==='active'){
          
          try{
-             await axios.post(` http://localhost:8080/boards/${boardId}/deleteTodo`,{
+             await axios.post(` ${process.env.REACT_APP_API_URL}/boards/${boardId}/deleteTodo`,{
                  id
                 },{
                     headers:{
@@ -30,7 +33,7 @@ function TodoCard({id, title, status, boardId, description}) {
             }
         }else{
             try{
-                  await axios.post(` http://localhost:8080/boards/${boardId}/deleteComplete`,{
+                  await axios.post(` ${process.env.REACT_APP_API_URL}/boards/${boardId}/deleteComplete`,{
                         id
                   },{
                       headers:{
@@ -56,7 +59,7 @@ function TodoCard({id, title, status, boardId, description}) {
             deleteTodo()
             try{
 
-                await axios.post(`http://localhost:8080/boards/${boardId}/addComplete`,
+                await axios.post(`${process.env.REACT_APP_API_URL}/boards/${boardId}/addComplete`,
                 {
                     completeId:id,
                     title,
@@ -77,16 +80,99 @@ function TodoCard({id, title, status, boardId, description}) {
             
         }
     }
+    async function handleUpdateTitle(e){
+        e.preventDefault()        
+        try{
+              await axios.post(`${process.env.REACT_APP_API_URL}/boards/${boardId}/updateTodoTitle`,{
+                  todoId:id,
+                  updatedTitle
+                  
+              },{
+                  headers:{
+                        "Content-Type":"application/json",
+                        "Access-Control-Allow-Origin":"*"
+                  }
+              })
+              dispatch(fetchTodosById(boardId))
+        }catch(err){
+            throw err
+        }
+        
+        setUpdatedTitle('')
+        setTitleEditCheck(false)
+    }
+    
+    async function handleUpdateDescription(e){
+        e.preventDefault()
+         try{
+              await axios.post(`${process.env.REACT_APP_API_URL}/boards/${boardId}/updateTodoDescription`,{
+                    todoId:id,
+                    updatedDescription
+              },{
+                  headers:{
+                        "Content-Type":"application/json",
+                        "Access-Control-Allow-Origin":"*"
+                  }
+              }) 
+              dispatch(fetchTodosById(boardId))    
+        }catch(err){
+            throw err
+        }
+        
+        console.log(updatedDescription)
+        setUpdatedDescription('')
+        setDescriptionEditCheck(false)
+    }
+
+    function keyDown(e){
+        if(e.key==" " && e.target.value.length===0) e.preventDefault() 
+    }
 
     return (
-        <div className="p-2 my-8 border shadow-md">
+        <div className="p-2 my-8 text-sm border rounded-md shadow-md sm:text-base">
             <div className="flex justify-between">
-            <h3 className="font-semibold uppercase sm:text-lg">{title}</h3>
+            {!titleCheck  ? (
+            <div className="flex items-center overflow-scroll">
+            <h3 className="pr-1 overflow-scroll font-semibold uppercase whitespace-nowrap sm:text-lg">{title}</h3>
+            {
+                status==='active' &&
+                <CreateIcon onClick={()=>setTitleEditCheck(true)} className="text-gray-600 rounded-md cursor-pointer hover:bg-gray-300" fontSize="small" />
+            }
+            </div>
+                
+            ):(
+               <form onSubmit={handleUpdateTitle} className="flex items-center pr-2 space-x-2 items">
+                   <input required={true} onKeyDown={keyDown} value={updatedTitle} type="text" className="w-20 border-b sm:w-auto focus:outline-none" placeholder="new title" onChange={(e)=>setUpdatedTitle(e.target.value)}/>
+                   <button type="submit"><CheckIcon className="rounded-md cursor-pointer hover:bg-gray-300" fontSize="small"/></button>
+                   <button type="button" className="rounded-md cursor-pointer hover:bg-gray-300" onClick={()=>setTitleEditCheck(false)}>
+                       <CloseIcon  fontSize="small"/>
+                       </button>
+                </form> 
+            )
+        }
             <CloseIcon onClick={deleteTodo} className="rounded-md cursor-pointer hover:bg-gray-300"  fontSize="medium"/> 
             
 
             </div>
-            <p className="py-4 text-gray-500">{description}</p>
+            {!descriptionCheck ? (
+            <div className="flex items-center">
+            <p className="py-4 pr-1 text-gray-500">{description}</p>
+            {
+             status==='active' &&   
+            <CreateIcon onClick={()=>setDescriptionEditCheck(true)} className="text-gray-600 rounded-md cursor-pointer hover:bg-gray-300" fontSize="small"/>
+        }
+            </div>
+                
+            ):(
+                  <form onSubmit={handleUpdateDescription} className="flex items-center pr-2 mt-1 space-x-2 items">
+                      <input required={true} onKeyDown={keyDown} value={updatedDescription} type="text" className="w-20 my-4 border-b sm:w-auto focus:outline-none" placeholder="new description" onChange={(e)=>setUpdatedDescription(e.target.value)}/>
+                   <button type="submit"><CheckIcon className="rounded-md cursor-pointer hover:bg-gray-300" fontSize="small"/></button>
+                   <button type="button" className="rounded-md cursor-pointer hover:bg-gray-300" onClick={()=>setDescriptionEditCheck(false)}>
+                       <CloseIcon  fontSize="small"/>
+                       </button>
+                  </form>  
+            )}
+
             <>
             {  status==='active' ? (
 

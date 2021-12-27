@@ -22,7 +22,7 @@ function Board({id, name, activeId}) {
     async function handleDelete(){
         console.log(id,'delete')
         try{
-             axios.post(`http://localhost:8080/boards/delete/${id}`,{
+             axios.post(`${process.env.REACT_APP_API_URL}/boards/delete/${id}`,{
                  headers:{
                     'Content-Type':'application/json','Access-Control-Allow-Origin':'*'
                  }

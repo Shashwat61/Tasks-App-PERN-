@@ -10,7 +10,6 @@ export const fetchCompletedTodosReducer=(state={completedTodos:[], loading:false
                 loading:true
             }
         case FETCH_COMPLETE_TODOS_SUCCESS:
-            console.log(payload)
             return {
                 ...state,
                 loading:false,

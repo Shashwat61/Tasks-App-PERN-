@@ -12,20 +12,15 @@ function MainContent() {
     const dispatch=useDispatch()
 
     React.useEffect(()=>{
-        //only on the first mount tocheck -> run useeffect on id change
-        console.log('maincontainer')
         dispatch(fetchBoards())
         dispatch(fetchTodosById(id))
         dispatch(fetchCompleteTodosById(id))
     },[])
 
-    console.log(id)
     return (
         <div className="mx-auto max-w-7xl">
             <Header activeId={id}/>
-            <PhaseContainer/>
-           
-            
+            <PhaseContainer/>            
         </div>
     )
 }

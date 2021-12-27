@@ -38,6 +38,33 @@ exports.createTodo=async(req, res, next)=>{
     return arr
  }
 
+
+ exports.updateTodoTitle=async(req, res, next)=>{
+    console.log(req.body.todoId, req.body.updatedTitle)
+    const todoId=req.body.todoId
+    const title=req.body.updatedTitle
+
+    try{
+        const {rows}=await db.query(`UPDATE todos SET todo_title=$1 WHERE todo_id=$2`,[title, todoId])
+        res.send(rows)
+    }
+    catch(err){
+       throw err
+    }
+ }
+
+ exports.updateTodoDescription=async(req, res, next)=>{
+     console.log(req.body.todoId, req.body.updatedDescription)
+     const todoId=req.body.todoId
+     const description=req.body.updatedDescription
+     try{
+          const {rows}=db.query(`UPDATE todos SET todo_description=$1 WHERE todo_id=$2`,[description, todoId])
+          res.send(rows)
+     }catch(err){
+         throw err
+     }
+ }
+
  exports.deleteTodo=async(req, res, next)=>{
      console.log('todos')
         const todoId=req.body.id

@@ -4,7 +4,7 @@ import { FETCH_TODOS_FAILED, FETCH_TODOS_REQUEST, FETCH_TODOS_SUCCESS } from "..
 export const fetchTodosById=(id)=>{
     return (dispatch)=>{
         dispatch({type:FETCH_TODOS_REQUEST})
-        axios.get(`http://localhost:8080/boards/${id}/todos`,{
+        axios.get(`${process.env.REACT_APP_API_URL}/boards/${id}/todos`,{
             headers:{
                 'Content-Type':'application/json','Access-Control-Allow-Origin':'*'
             }

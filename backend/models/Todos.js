@@ -17,6 +17,13 @@ Todos.prototype.addTodo=async function(){
  }
 }
 
-
+Todos.prototype.updateTitle=async function (id, title){
+    try{
+        const {rows}=await db.query(`UPDATE todos SET todo_title=$1 WHERE todo_id=$2`, [title, id])
+        return rows
+    }catch(err){
+        return err
+    }
+}
 
 module.exports=Todos

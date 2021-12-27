@@ -4,7 +4,7 @@ import {FETCH_COMPLETE_TODOS_REQUEST, FETCH_COMPLETE_TODOS_SUCCESS, FETCH_COMPLE
 export const fetchCompleteTodosById=(id)=>{
     return (dispatch)=>{
        dispatch({type:FETCH_COMPLETE_TODOS_REQUEST})
-       axios.get(`http://localhost:8080/boards/${id}/completetodos`,{
+       axios.get(`${process.env.REACT_APP_API_URL}/boards/${id}/completetodos`,{
            headers:{
                 'Content-Type':'application/json','Access-Control-Allow-Origin':'*'
            }

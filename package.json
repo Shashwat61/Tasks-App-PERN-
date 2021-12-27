@@ -12,7 +12,7 @@
   "license": "MIT",
   "name": "react-webpack-5-tailwind-2",
   "version": "1.0.1",
-  "description": "Webpack 6 boilerplate with React 17, Tailwind 2, using babel, sass, with HMR and an optimized production build",
+  "description": "Todo App ",
   "dependencies": {
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",

@@ -4,7 +4,7 @@ import { FETCH_BOARDS_FAILED, FETCH_BOARDS_REQUEST, FETCH_BOARDS_SUCCESS } from 
 export const fetchBoards=()=>{
     return (dispatch)=>{
         dispatch({type:FETCH_BOARDS_REQUEST})
-        axios.get('http://localhost:8080/boards',{
+        axios.get(`${process.env.REACT_APP_API_URL}/boards`,{
             headers:{
                 'Content-Type':'application/json','Access-Control-Allow-Origin':'*'
             }
