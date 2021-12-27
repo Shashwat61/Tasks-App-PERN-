@@ -5,7 +5,7 @@
 
 ```
 git clone https://github.com/Shashwat61/chiselchallenge
-cd TODOFULLSTACKAPP
+cd chiselchallenge
 yarn / npm i
 ```
 
