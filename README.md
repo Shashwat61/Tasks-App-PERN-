@@ -1,12 +1,5 @@
 # Todo App
 
-R
-
-
-
-
-
-
 
 ## Installation
 
@@ -19,7 +12,7 @@ yarn / npm i
 
 ## Usage
 
-### Development server
+### For client development server
 
 ```bash
 yarn start / npm start
